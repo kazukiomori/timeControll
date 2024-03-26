@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct Home: View {
+    @EnvironmentObject var pomodoroModel: PomodoroModel
     var body: some View {
         VStack {
             Text("ポモドーロタイマー")
@@ -21,7 +22,7 @@ struct Home: View {
                             .padding(-40)
                         
                         Circle()
-                            .trim(from: 0, to: 0.5)
+                            .trim(from: 0, to: pomodoroModel.progress)
                             .stroke(.white.opacity(0.03), lineWidth: 80)
                         
                         Circle()
@@ -34,7 +35,7 @@ struct Home: View {
                             .fill(Color(.systemGray6))
                         
                         Circle()
-                            .trim(from: 0, to: 0.5)
+                            .trim(from: 0, to: pomodoroModel.progress)
                             .stroke(Color(.purple).opacity(0.7), lineWidth: 10)
                         
                         GeometryReader{ proxy in
@@ -52,12 +53,34 @@ struct Home: View {
                                        height: size.height,
                                        alignment: .center)
                                 .offset(x: size.height / 2)
+                                .rotationEffect(.init(degrees: pomodoroModel.progress * 360))
                             
                         }
+                        
+                        Text(pomodoroModel.timeStringValue)
+                            .font(.system(size: 45, weight: .light))
+                            .rotationEffect(.init(degrees: -90))
+                            .animation(.none, value: pomodoroModel.progress)
                     }
                     .padding(60)
                     .frame(height: proxy.size.width)
                     .rotationEffect(.init(degrees: -90))
+                    .animation(.easeInOut, value: pomodoroModel.progress)
+                    
+                    Button {
+                        
+                    } label: {
+                        Image(systemName: "pause")
+                            .font(.largeTitle)
+                            .foregroundColor(.white)
+                            .frame(width: 80, height: 80)
+                            .background{
+                                Circle()
+                                    .fill(Color(.purple))
+                            }
+                            .shadow(color: Color(.purple),radius: 8, x: 0, y: 0)
+                    }
+
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
