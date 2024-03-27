@@ -68,9 +68,14 @@ struct Home: View {
                     .animation(.easeInOut, value: pomodoroModel.progress)
                     
                     Button {
+                        if pomodoroModel.isStarted {
+                            
+                        } else {
+                            pomodoroModel.addNewTimer = true
+                        }
                         
                     } label: {
-                        Image(systemName: "pause")
+                        Image(systemName: !pomodoroModel.isStarted ? "timer" : "pause")
                             .font(.largeTitle)
                             .foregroundColor(.white)
                             .frame(width: 80, height: 80)
@@ -90,7 +95,40 @@ struct Home: View {
             Color(.systemGray6)
                 .ignoresSafeArea()
         }
+        .overlay(content: {
+            ZStack {
+                Color.black
+                    .opacity(pomodoroModel.addNewTimer ? 0.25 : 0)
+                    .onTapGesture {
+                        pomodoroModel.addNewTimer = false
+                    }
+                
+                NewTimerView()
+                    .frame(maxHeight: .infinity, alignment: .bottom)
+                    .offset(y: pomodoroModel.addNewTimer ? 0 : 400)
+            }
+            .animation(.easeInOut, value: pomodoroModel.addNewTimer)
+        })
         .preferredColorScheme(.dark)
+    }
+    
+    // MARK: New Timer Button Sheet
+    @ViewBuilder
+    func NewTimerView() -> some View {
+        VStack(spacing: 15) {
+            Text("新しいタイマーを追加")
+                .font(.title2.bold())
+                .foregroundColor(.white)
+                .padding(.top, 10)
+        }
+        .padding()
+        .frame(maxWidth: .infinity)
+        .background{
+            RoundedRectangle(cornerRadius: 10, style: .continuous)
+                .fill(Color(.systemGray6))
+                .ignoresSafeArea()
+            
+        }
     }
 }
 
