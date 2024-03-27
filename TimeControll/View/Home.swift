@@ -155,6 +155,25 @@ struct Home: View {
                             .fill(.white.opacity(0.07))
                     }
             }
+            .padding(.top, 20)
+            
+            Button {
+                
+            } label: {
+                Text("保存")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 100)
+                    .padding(.vertical)
+                    .background{
+                        Capsule()
+                            .fill(Color(.purple))
+                    }
+            }
+            .disabled(pomodoroModel.seconds == 0)
+            .opacity(pomodoroModel.seconds == 0 ? 0.5 : 1)
+            .padding(.top)
         }
         .padding()
         .frame(maxWidth: .infinity)
@@ -163,6 +182,15 @@ struct Home: View {
                 .fill(Color(.systemGray6))
                 .ignoresSafeArea()
             
+        }
+    }
+    
+    // MARK: Reusable Context Menu Options
+    func ContextMenuOptions(maxValue: Int, hint: String, onClick: @escaping (Int)->()) {
+        ForEach(0...maxValue, id: \.self) {value in
+            Button("\(value) \(hint)"){
+                onClick(value)
+            }
         }
     }
 }
