@@ -120,6 +120,41 @@ struct Home: View {
                 .font(.title2.bold())
                 .foregroundColor(.white)
                 .padding(.top, 10)
+            
+            HStack(spacing: 15){
+                Text("\(pomodoroModel.hour) 時間")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white.opacity(0.3))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background{
+                        Capsule()
+                            .fill(.white.opacity(0.07))
+                    }
+                
+                Text("\(pomodoroModel.minutes) 分")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white.opacity(0.3))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background{
+                        Capsule()
+                            .fill(.white.opacity(0.07))
+                    }
+                
+                Text("\(pomodoroModel.seconds) 秒")
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                    .foregroundColor(.white.opacity(0.3))
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 12)
+                    .background{
+                        Capsule()
+                            .fill(.white.opacity(0.07))
+                    }
+            }
         }
         .padding()
         .frame(maxWidth: .infinity)
