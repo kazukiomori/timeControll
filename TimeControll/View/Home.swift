@@ -100,6 +100,9 @@ struct Home: View {
                 Color.black
                     .opacity(pomodoroModel.addNewTimer ? 0.25 : 0)
                     .onTapGesture {
+                        pomodoroModel.hour = 0
+                        pomodoroModel.minutes = 0
+                        pomodoroModel.seconds = 0
                         pomodoroModel.addNewTimer = false
                     }
                 
@@ -132,6 +135,11 @@ struct Home: View {
                         Capsule()
                             .fill(.white.opacity(0.07))
                     }
+                    .contextMenu{
+                        ContextMenuOptions(maxValue: 12, hint: "時間") { value in
+                            pomodoroModel.hour = value
+                        }
+                    }
                 
                 Text("\(pomodoroModel.minutes) 分")
                     .font(.title3)
@@ -143,6 +151,11 @@ struct Home: View {
                         Capsule()
                             .fill(.white.opacity(0.07))
                     }
+                    .contextMenu{
+                        ContextMenuOptions(maxValue: 60, hint: "分") { value in
+                            pomodoroModel.minutes = value
+                        }
+                    }
                 
                 Text("\(pomodoroModel.seconds) 秒")
                     .font(.title3)
@@ -153,6 +166,11 @@ struct Home: View {
                     .background{
                         Capsule()
                             .fill(.white.opacity(0.07))
+                    }
+                    .contextMenu{
+                        ContextMenuOptions(maxValue: 60, hint: "秒") { value in
+                            pomodoroModel.seconds = value
+                        }
                     }
             }
             .padding(.top, 20)
@@ -186,7 +204,8 @@ struct Home: View {
     }
     
     // MARK: Reusable Context Menu Options
-    func ContextMenuOptions(maxValue: Int, hint: String, onClick: @escaping (Int)->()) {
+    @ViewBuilder
+    func ContextMenuOptions(maxValue: Int, hint: String, onClick: @escaping (Int)->()) -> some View {
         ForEach(0...maxValue, id: \.self) {value in
             Button("\(value) \(hint)"){
                 onClick(value)
