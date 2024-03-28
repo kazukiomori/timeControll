@@ -59,7 +59,7 @@ struct Home: View {
                         
                         Text(pomodoroModel.timeStringValue)
                             .font(.system(size: 45, weight: .light))
-                            .rotationEffect(.init(degrees: -90))
+                            .rotationEffect(.init(degrees: 90))
                             .animation(.none, value: pomodoroModel.progress)
                     }
                     .padding(60)
@@ -69,13 +69,14 @@ struct Home: View {
                     
                     Button {
                         if pomodoroModel.isStarted {
-                            
+                            pomodoroModel.stopTimer()
+                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                         } else {
                             pomodoroModel.addNewTimer = true
                         }
                         
                     } label: {
-                        Image(systemName: !pomodoroModel.isStarted ? "timer" : "pause")
+                        Image(systemName: !pomodoroModel.isStarted ? "timer" : "stop.fill")
                             .font(.largeTitle)
                             .foregroundColor(.white)
                             .frame(width: 80, height: 80)
@@ -113,6 +114,21 @@ struct Home: View {
             .animation(.easeInOut, value: pomodoroModel.addNewTimer)
         })
         .preferredColorScheme(.dark)
+        .onReceive(Timer.publish(every: 1, on: .main, in: .common).autoconnect(), perform: { _ in
+            if pomodoroModel.isStarted {
+                pomodoroModel.updateTimer()
+            }
+        })
+        .alert("完了", isPresented: $pomodoroModel.isFinished) {
+            Button("再度設定する", role: .cancel) {
+                pomodoroModel.stopTimer()
+                pomodoroModel.addNewTimer = true
+            }
+            Button("閉じる", role: .destructive) {
+                pomodoroModel.stopTimer()
+            }
+
+        }
     }
     
     // MARK: New Timer Button Sheet
@@ -176,7 +192,7 @@ struct Home: View {
             .padding(.top, 20)
             
             Button {
-                
+                pomodoroModel.startTimer()
             } label: {
                 Text("保存")
                     .font(.title3)
