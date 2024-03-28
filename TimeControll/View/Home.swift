@@ -205,8 +205,12 @@ struct Home: View {
                             .fill(Color(.purple))
                     }
             }
-            .disabled(pomodoroModel.seconds == 0)
-            .opacity(pomodoroModel.seconds == 0 ? 0.5 : 1)
+            .disabled(pomodoroModel.hour == 0 &&
+                      pomodoroModel.minutes == 0 &&
+                      pomodoroModel.seconds == 0)
+            .opacity(pomodoroModel.hour == 0 &&
+                     pomodoroModel.minutes == 0 &&
+                     pomodoroModel.seconds == 0 ? 0.5 : 1)
             .padding(.top)
         }
         .padding()
