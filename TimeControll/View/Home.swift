@@ -119,10 +119,12 @@ struct Home: View {
                 pomodoroModel.updateTimer()
             }
         })
-        .alert("完了", isPresented: $pomodoroModel.isFinished) {
-            Button("再度設定する", role: .cancel) {
+        .alert("タイマー終了", isPresented: $pomodoroModel.isFinished) {
+            Button("もう一回", role: .cancel) {
                 pomodoroModel.stopTimer()
                 pomodoroModel.addNewTimer = true
+                pomodoroModel.againTimer()
+                pomodoroModel.startTimer()
             }
             Button("閉じる", role: .destructive) {
                 pomodoroModel.stopTimer()
@@ -154,6 +156,7 @@ struct Home: View {
                     .contextMenu{
                         ContextMenuOptions(maxValue: 12, hint: "時間") { value in
                             pomodoroModel.hour = value
+                            pomodoroModel.lastHour = pomodoroModel.hour
                         }
                     }
                 
@@ -170,6 +173,7 @@ struct Home: View {
                     .contextMenu{
                         ContextMenuOptions(maxValue: 60, hint: "分") { value in
                             pomodoroModel.minutes = value
+                            pomodoroModel.lastMinutes = pomodoroModel.minutes
                         }
                     }
                 
@@ -186,6 +190,7 @@ struct Home: View {
                     .contextMenu{
                         ContextMenuOptions(maxValue: 60, hint: "秒") { value in
                             pomodoroModel.seconds = value
+                            pomodoroModel.lastSeconds = pomodoroModel.seconds
                         }
                     }
             }
@@ -194,7 +199,7 @@ struct Home: View {
             Button {
                 pomodoroModel.startTimer()
             } label: {
-                Text("保存")
+                Text("スタート")
                     .font(.title3)
                     .fontWeight(.semibold)
                     .foregroundColor(.white)

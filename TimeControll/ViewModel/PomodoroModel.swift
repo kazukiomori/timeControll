@@ -18,6 +18,10 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
     @Published var minutes: Int = 0
     @Published var seconds: Int = 0
     
+    @Published var lastHour: Int = 0
+    @Published var lastMinutes: Int = 0
+    @Published var lastSeconds: Int = 0
+    
     @Published var totalSeconds: Int = 0
     @Published var staticTotalSeconds: Int = 0
     
@@ -80,11 +84,17 @@ class PomodoroModel: NSObject, ObservableObject, UNUserNotificationCenterDelegat
     func addNotification() {
         let content = UNMutableNotificationContent()
         content.title = "ポモドーロタイマー"
-        content.subtitle = "完了"
+        content.subtitle = "タイマー"
         content.sound = .default
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: UNTimeIntervalNotificationTrigger(timeInterval: TimeInterval(staticTotalSeconds), repeats: false))
         
         UNUserNotificationCenter.current().add(request)
+    }
+    
+    func againTimer() {
+        hour = lastHour
+        minutes = lastMinutes
+        seconds = lastSeconds
     }
 }
