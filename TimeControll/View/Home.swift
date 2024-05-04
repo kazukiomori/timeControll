@@ -143,56 +143,62 @@ struct Home: View {
                 .padding(.top, 10)
             
             HStack(spacing: 15){
-                Text("\(pomodoroModel.hour) 時間")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white.opacity(0.3))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background{
-                        Capsule()
-                            .fill(.white.opacity(0.07))
+                Menu {
+                    ContextMenuOptions(maxValue: 12, hint: "時間") { value in
+                        pomodoroModel.hour = value
+                        pomodoroModel.lastHour = pomodoroModel.hour
                     }
-                    .contextMenu{
-                        ContextMenuOptions(maxValue: 12, hint: "時間") { value in
-                            pomodoroModel.hour = value
-                            pomodoroModel.lastHour = pomodoroModel.hour
+//                    .menuOrder(.priority)
+                } label: {
+                    Text("\(pomodoroModel.hour) 時間")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white.opacity(0.3))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background{
+                            Capsule()
+                                .fill(.white.opacity(0.07))
                         }
-                    }
+                }
                 
-                Text("\(pomodoroModel.minutes) 分")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white.opacity(0.3))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background{
-                        Capsule()
-                            .fill(.white.opacity(0.07))
+                Menu {
+                    ContextMenuOptions(maxValue: 60, hint: "分") { value in
+                        pomodoroModel.minutes = value
+                        pomodoroModel.lastMinutes = pomodoroModel.minutes
                     }
-                    .contextMenu{
-                        ContextMenuOptions(maxValue: 60, hint: "分") { value in
-                            pomodoroModel.minutes = value
-                            pomodoroModel.lastMinutes = pomodoroModel.minutes
+                    .menuOrder(.fixed)
+                } label: {
+                    Text("\(pomodoroModel.minutes) 分")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white.opacity(0.3))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background{
+                            Capsule()
+                                .fill(.white.opacity(0.07))
                         }
-                    }
+                }
                 
-                Text("\(pomodoroModel.seconds) 秒")
-                    .font(.title3)
-                    .fontWeight(.semibold)
-                    .foregroundColor(.white.opacity(0.3))
-                    .padding(.horizontal, 20)
-                    .padding(.vertical, 12)
-                    .background{
-                        Capsule()
-                            .fill(.white.opacity(0.07))
+                Menu {
+                    ContextMenuOptions(maxValue: 60, hint: "秒") { value in
+                        pomodoroModel.seconds = value
+                        pomodoroModel.lastSeconds = pomodoroModel.seconds
                     }
-                    .contextMenu{
-                        ContextMenuOptions(maxValue: 60, hint: "秒") { value in
-                            pomodoroModel.seconds = value
-                            pomodoroModel.lastSeconds = pomodoroModel.seconds
+                    .menuOrder(.fixed)
+                } label: {
+                    Text("\(pomodoroModel.seconds) 秒")
+                        .font(.title3)
+                        .fontWeight(.semibold)
+                        .foregroundColor(.white.opacity(0.3))
+                        .padding(.horizontal, 20)
+                        .padding(.vertical, 12)
+                        .background{
+                            Capsule()
+                                .fill(.white.opacity(0.07))
                         }
-                    }
+                }
             }
             .padding(.top, 20)
             
