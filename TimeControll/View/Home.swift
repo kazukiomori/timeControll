@@ -104,6 +104,9 @@ struct Home: View {
                         pomodoroModel.hour = 0
                         pomodoroModel.minutes = 0
                         pomodoroModel.seconds = 0
+                        pomodoroModel.lastHour = 0
+                        pomodoroModel.lastMinutes = 0
+                        pomodoroModel.lastSeconds = 0
                         pomodoroModel.addNewTimer = false
                     }
                 
