@@ -13,6 +13,9 @@
 		3BA16D952B8630EE0011ECA9 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BA16D942B8630EE0011ECA9 /* Preview Assets.xcassets */; };
 		3BADD3BD2B90DC1300EF9295 /* PomodoroModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BADD3BC2B90DC1300EF9295 /* PomodoroModel.swift */; };
 		3BADD3BF2B90DD3300EF9295 /* Home.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BADD3BE2B90DD3300EF9295 /* Home.swift */; };
+		3BBBA8C22C032A49004C9568 /* FamilyActivityPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBA8C12C032A49004C9568 /* FamilyActivityPicker.swift */; };
+		3BBBA8C42C032BC8004C9568 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBA8C32C032BC8004C9568 /* Activity.swift */; };
+		3BBBA8C62C032DE7004C9568 /* FamilyActivityPickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBBA8C52C032DE7004C9568 /* FamilyActivityPickerController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,10 @@
 		3BA16D942B8630EE0011ECA9 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3BADD3BC2B90DC1300EF9295 /* PomodoroModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PomodoroModel.swift; sourceTree = "<group>"; };
 		3BADD3BE2B90DD3300EF9295 /* Home.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Home.swift; sourceTree = "<group>"; };
+		3BBBA8C02C030C62004C9568 /* TimeControll.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TimeControll.entitlements; sourceTree = "<group>"; };
+		3BBBA8C12C032A49004C9568 /* FamilyActivityPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyActivityPicker.swift; sourceTree = "<group>"; };
+		3BBBA8C32C032BC8004C9568 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		3BBBA8C52C032DE7004C9568 /* FamilyActivityPickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FamilyActivityPickerController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,8 +62,10 @@
 		3BA16D8C2B8630EC0011ECA9 /* TimeControll */ = {
 			isa = PBXGroup;
 			children = (
+				3BBBA8C02C030C62004C9568 /* TimeControll.entitlements */,
 				3BADD3BB2B90DBE300EF9295 /* ViewModel */,
 				3BADD3BA2B90DBDA00EF9295 /* View */,
+				3BBBA8C32C032BC8004C9568 /* Activity.swift */,
 				3BA16D8D2B8630EC0011ECA9 /* TimeControllApp.swift */,
 				3BA16D8F2B8630EC0011ECA9 /* ContentView.swift */,
 				3BA16D912B8630EE0011ECA9 /* Assets.xcassets */,
@@ -77,6 +86,8 @@
 			isa = PBXGroup;
 			children = (
 				3BADD3BE2B90DD3300EF9295 /* Home.swift */,
+				3BBBA8C12C032A49004C9568 /* FamilyActivityPicker.swift */,
+				3BBBA8C52C032DE7004C9568 /* FamilyActivityPickerController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -159,10 +170,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BBBA8C42C032BC8004C9568 /* Activity.swift in Sources */,
 				3BADD3BD2B90DC1300EF9295 /* PomodoroModel.swift in Sources */,
 				3BA16D902B8630EC0011ECA9 /* ContentView.swift in Sources */,
 				3BADD3BF2B90DD3300EF9295 /* Home.swift in Sources */,
+				3BBBA8C62C032DE7004C9568 /* FamilyActivityPickerController.swift in Sources */,
 				3BA16D8E2B8630EC0011ECA9 /* TimeControllApp.swift in Sources */,
+				3BBBA8C22C032A49004C9568 /* FamilyActivityPicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +307,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TimeControll/TimeControll.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeControll/Preview Content\"";
@@ -309,9 +325,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kazuki.TimeControll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -326,6 +343,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = TimeControll/TimeControll.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"TimeControll/Preview Content\"";
@@ -342,9 +361,10 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.kazuki.TimeControll;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

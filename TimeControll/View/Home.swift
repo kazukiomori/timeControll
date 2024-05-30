@@ -4,11 +4,17 @@
 //
 //  Created by Kazuki Omori on 2024/03/01.
 //
-
+import DeviceActivity
+import FamilyControls
 import SwiftUI
 
 struct Home: View {
     @EnvironmentObject var pomodoroModel: PomodoroModel
+    @State private var isShowingPicker = false
+    @State var selectedActivities = FamilyActivitySelection()
+//    @State private var selectedActivities: [Activity] = []
+//    @Environment(\.familyActivityPicker) var familyActivityPicker
+    
     var body: some View {
         VStack {
             Text("ポモドーロタイマー")
@@ -67,32 +73,57 @@ struct Home: View {
                     .rotationEffect(.init(degrees: -90))
                     .animation(.easeInOut, value: pomodoroModel.progress)
                     
-                    Button {
-                        if pomodoroModel.isStarted {
-                            pomodoroModel.stopTimer()
-                            UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                        } else {
-                            pomodoroModel.addNewTimer = true
+                    HStack {
+                        Spacer()
+                        
+                        Button {
+                            if pomodoroModel.isStarted {
+                                pomodoroModel.stopTimer()
+                                UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                            } else {
+                                pomodoroModel.addNewTimer = true
+                            }
+                            
+                        } label: {
+                            Image(systemName: !pomodoroModel.isStarted ? "timer" : "stop.fill")
+                                .font(.largeTitle)
+                                .foregroundColor(.white)
+                                .frame(width: 80, height: 80)
+                                .background{
+                                    Circle()
+                                        .fill(Color(.purple))
+                                }
+                                .shadow(color: Color(.purple),radius: 8, x: 0, y: 0)
                         }
                         
-                    } label: {
-                        Image(systemName: !pomodoroModel.isStarted ? "timer" : "stop.fill")
-                            .font(.largeTitle)
-                            .foregroundColor(.white)
-                            .frame(width: 80, height: 80)
-                            .background{
-                                Circle()
-                                    .fill(Color(.purple))
-                            }
-                            .shadow(color: Color(.purple),radius: 8, x: 0, y: 0)
+                        Spacer()
+                        
+                        Button {
+                            isShowingPicker = true
+                        } label: {
+                            Image(systemName: "checkmark.circle")
+                                .font(.largeTitle)
+                                .foregroundColor(.white)
+                                .frame(width: 80, height: 80)
+                                .background{
+                                    Circle()
+                                        .fill(Color(.purple))
+                                }
+                                .shadow(color: Color(.purple),radius: 8, x: 0, y: 0)
+                        }
+                        .familyActivityPicker(
+                            isPresented: $isShowingPicker,
+                            selection: $selectedActivities
+                        )
+                        
+                        Spacer()
                     }
-
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
         }
         .padding()
-        .background{
+        .background {
             Color(.systemGray6)
                 .ignoresSafeArea()
         }
@@ -132,7 +163,19 @@ struct Home: View {
             Button("閉じる", role: .destructive) {
                 pomodoroModel.stopTimer()
             }
-
+        }
+        .onAppear {
+            Task {
+                await requestAuthorize()
+            }
+        }
+    }
+    
+    func requestAuthorize() async {
+        do {
+            try await AuthorizationCenter.shared.requestAuthorization(for: .individual)
+        } catch {
+                
         }
     }
     
