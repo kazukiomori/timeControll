@@ -12,8 +12,7 @@ struct Home: View {
     @EnvironmentObject var pomodoroModel: PomodoroModel
     @State private var isShowingPicker = false
     @State var selectedActivities = FamilyActivitySelection()
-//    @State private var selectedActivities: [Activity] = []
-//    @Environment(\.familyActivityPicker) var familyActivityPicker
+    @EnvironmentObject var familyControlModel: FamilyControlModel
     
     var body: some View {
         VStack {
@@ -113,9 +112,8 @@ struct Home: View {
                         }
                         .familyActivityPicker(
                             isPresented: $isShowingPicker,
-                            selection: $selectedActivities
+                            selection: $familyControlModel.selectionToDiscourage
                         )
-                        
                         Spacer()
                     }
                 }
@@ -123,10 +121,6 @@ struct Home: View {
             }
         }
         .padding()
-        .background {
-            Color(.systemGray6)
-                .ignoresSafeArea()
-        }
         .overlay(content: {
             ZStack {
                 Color.black
